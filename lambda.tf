@@ -1,26 +1,5 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.27"
-    }
-  }
-}
-
-provider "aws" {
-  region = "eu-west-2"
-  access_key = "AKIA4EIUQHXFSPVGOR6K"
-  secret_key = "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"
-}
-
-resource "aws_ssm_parameter" "foo" {
-  name  = "foo"
-  type  = "StringList"
-  value = "name1, name2"
-}
-
-resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
+resource "aws_iam_role" "iam_for_lambda2" {
+  name = "iam_for_lambda2"
 
   assume_role_policy = <<EOF
 {
@@ -42,7 +21,7 @@ EOF
 resource "aws_lambda_function" "test_lambda" {
   filename      = "getNames.zip"
   function_name = "lambda_function_name"
-  role          = aws_iam_role.iam_for_lambda.arn
+  role          = aws_iam_role.iam_for_lambda2.arn
   handler       = "index.test"
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
